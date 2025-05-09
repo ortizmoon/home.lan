@@ -49,7 +49,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   initialization {
     dns {
       domain = ""
-      server = "192.168.10.1"
+      servers = ["192.168.10.1"]
     }  
     ip_config {
       ipv4 {
