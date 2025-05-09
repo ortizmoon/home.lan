@@ -23,8 +23,3 @@ variable "pm_datastore_id" {
 variable "ssh_key_path" {
   type    = string  
 }
-variable "root_password" {
-  type        = string
-  sensitive   = true
-  default     = "root123"  # Рекомендуется изменить на более безопасный пароль
-}

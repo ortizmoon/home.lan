@@ -1,5 +1,5 @@
-resource "proxmox_virtual_environment_vm" "netbox" {
-  name      = "cmdb.ebatra.com"
+resource "proxmox_virtual_environment_vm" "vault" {
+  name      = "vault.ebatra.com"
   node_name = "pve"
 
   clone {
@@ -11,7 +11,7 @@ resource "proxmox_virtual_environment_vm" "netbox" {
   }
 
   cpu {
-    cores   = 2
+    cores   = 1
     sockets = 1
     type    = "host"
   }

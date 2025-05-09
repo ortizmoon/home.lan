@@ -4,5 +4,6 @@ terraform.tfstate.backup
 ./terraform
 ./*/terraform*
 ./*/terraform.tfstate.backup
+./*/.terraform*
 .DS_Store
 ./*/.DS_Store

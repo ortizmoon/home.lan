@@ -1,4 +1,4 @@
-resource "proxmox_virtual_environment_vm" "gitlab" {
+resource "proxmox_virtual_environment_vm" "traefik" {
   name      = "traefik.ebatra.com"
   node_name = "pve"
 
@@ -17,14 +17,25 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   }
 
   memory {
-    dedicated = 1024
+    dedicated = 2048
   }
 
   disk {
-    datastore_id      = var.pm_datastore_id
-    interface         = "scsi0"
-    size              = 35
+    datastore_id = var.pm_datastore_id
+    interface    = "scsi0"
+    size         = 35
   }
+  
+## Uncomment for add second disk
+  # disk {
+  #   datastore_id = var.pm_datastore2_id
+  #   interface    = "scsi1"
+  #   size         = 100
+  #   file_format  = "qcow2"
+  #   discard      = "on"
+  #   ssd          = true
+  #   iothread     = true
+  # }
 
   network_device {
     bridge = "vmbr0"
@@ -36,6 +47,10 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   }
 
   initialization {
+    dns {
+      domain = ""
+      servers = ["192.168.10.1"]
+    }  
     ip_config {
       ipv4 {
         address = "192.168.10.2/24"
@@ -44,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
     }
     user_account {
       username = "root"
-      password = var.root_password
+      password = "root123"
       keys     = [file(var.ssh_key_path)]
     }
   }
