@@ -2,3 +2,7 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform*
 ./terraform
+./*/terraform*
+./*/terraform.tfstate.backup
+.DS_Store
+./*/.DS_Store

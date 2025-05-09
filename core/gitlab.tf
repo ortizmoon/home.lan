@@ -21,10 +21,21 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   }
 
   disk {
-    datastore_id      = var.pm_datastore_id
-    interface         = "scsi0"
-    size              = 40
+    datastore_id = var.pm_datastore_id
+    interface    = "scsi0"
+    size         = 40
   }
+  
+## Uncomment for add second disk
+  # disk {
+  #   datastore_id = var.pm_datastore2_id
+  #   interface    = "scsi1"
+  #   size         = 100
+  #   file_format  = "qcow2"
+  #   discard      = "on"
+  #   ssd          = true
+  #   iothread     = true
+  # }
 
   network_device {
     bridge = "vmbr0"
@@ -36,6 +47,10 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   }
 
   initialization {
+    dns {
+      domain = ""
+      server = "192.168.10.1"
+    }  
     ip_config {
       ipv4 {
         address = "192.168.10.100/24"
@@ -44,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
     }
     user_account {
       username = "root"
-      password = var.root_password
+      password = "root123"
       keys     = [file(var.ssh_key_path)]
     }
   }
