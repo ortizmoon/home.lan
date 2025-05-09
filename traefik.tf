@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "gitlab" {
-  name      = "git.ebatra.com"
+  name      = "traefik.ebatra.com"
   node_name = "pve"
 
   clone {
@@ -17,13 +17,13 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   }
 
   memory {
-    dedicated = 4096
+    dedicated = 1024
   }
 
   disk {
     datastore_id      = var.pm_datastore_id
     interface         = "scsi0"
-    size              = 40
+    size              = 35
   }
 
   network_device {
@@ -38,7 +38,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   initialization {
     ip_config {
       ipv4 {
-        address = "192.168.10.100/24"
+        address = "192.168.10.2/24"
         gateway = "192.168.10.1"
       }
     }
