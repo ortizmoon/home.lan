@@ -1,9 +1,57 @@
-terraform.tfstate
-terraform.tfstate.backup
-.terraform*
-./terraform
-./*/terraform*
-./*/terraform.tfstate.backup
-./*/.terraform*
+# ----------------------
+# Terraform
+# ----------------------
+
+*.tfstate
+*.tfstate.backup
+*.tfplan
+terraform.tfvars
+crash.log
+
+**/.terraform/
+**/.terraform.lock.hcl
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ----------------------
+# Ansible
+# ----------------------
+
+ansible/ansible-vault.pass
+ansible/.ansible/
+ansible/.venv/
+ansible/.DS_Store
+ansible/.envrc
+ansible/.python-version
+ansible/.idea/
+ansible/.vscode/
+ansible/**/*.pyc
+ansible/**/__pycache__/
+
+# ----------------------
+# macOS system files (global)
+# ----------------------
+
 .DS_Store
-./*/.DS_Store
+**/.DS_Store
+
+# ----------------------
+# Python venv (anywhere)
+# ----------------------
+
+.venv/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+
+# ----------------------
+# Editor junk
+# ----------------------
+
+.idea/
+.vscode/
+*.swp
+*~

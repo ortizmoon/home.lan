@@ -1,0 +1,10 @@
+---
+# Common variables for all hosts
+ansible_user: admin
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+ansible_become: true
+ansible_become_method: sudo
+
+# Common paths
+app_dir: /opt/apps
+config_dir: /etc/apps 

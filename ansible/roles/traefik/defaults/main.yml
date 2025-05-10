@@ -1,0 +1,10 @@
+---
+# Traefik configuration defaults
+traefik_version: "v2.10"
+traefik_config_dir: "{{ config_dir }}/traefik"
+traefik_data_dir: "{{ app_dir }}/traefik"
+traefik_docker_image: "traefik:{{ traefik_version }}"
+traefik_ports:
+  - "80:80"
+  - "443:443"
+  - "8080:8080"  # Dashboard 

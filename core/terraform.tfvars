@@ -1,8 +1,0 @@
-pm_user      = "root@pam"
-pm_password  = "12345678"
-pm_api_token = "root@pam!terraform=26f3346b-9824-40d0-a72b-c191d0edd1de"
-ssh_key_path = "~/.ssh/id_ed25519.pub"
-pm_endpoint  ="https://pve.lan:8006/api2/json"
-pm_template_id  = "1000"
-pm_datastore_id = "SSD_STOR"
-pm_datastore2_id = "HDD_STOR"
