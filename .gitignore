@@ -1,7 +1,6 @@
 # ----------------------
 # Terraform
 # ----------------------
-
 *.tfstate
 *.tfstate.backup
 *.tfplan
@@ -19,7 +18,6 @@ override.tf.json
 # ----------------------
 # Ansible
 # ----------------------
-
 ansible/ansible-vault.pass
 ansible/.ansible/
 ansible/.venv/
@@ -30,18 +28,17 @@ ansible/.idea/
 ansible/.vscode/
 ansible/**/*.pyc
 ansible/**/__pycache__/
+.ansible/
 
 # ----------------------
 # macOS system files (global)
 # ----------------------
-
 .DS_Store
 **/.DS_Store
 
 # ----------------------
 # Python venv (anywhere)
 # ----------------------
-
 .venv/
 **/.venv/
 **/__pycache__/
@@ -50,7 +47,6 @@ ansible/**/__pycache__/
 # ----------------------
 # Editor junk
 # ----------------------
-
 .idea/
 .vscode/
 *.swp
