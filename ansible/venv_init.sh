@@ -4,7 +4,7 @@ source .venv/bin/activate
 # pip install --upgrade pip
 # pip install -r requirements.txt
 # ansible-galaxy collection install -r requirements.yml
-
+# ansible-galaxy init roles/consul
 
 # # Deactivate and remove venv
 # deactivate             

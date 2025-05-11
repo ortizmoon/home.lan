@@ -1,3 +1,19 @@
-#SPDX-License-Identifier: MIT-0
----
-# tasks file for roles/netbox
+- name: Install docker dependencies
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-compose
+    update_cache: true
+    state: present
+
+- name: Clone netbox-docker repo
+  ansible.builtin.git:
+    repo: 'https://github.com/netbox-community/netbox-docker.git'
+    dest: /opt/netbox-docker
+    version: master
+
+- name: Start NetBox via docker compose
+  ansible.builtin.command: docker compose up -d
+  changed_when: false
+  args:
+    chdir: /opt/netbox-docker

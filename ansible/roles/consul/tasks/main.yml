@@ -1,0 +1,38 @@
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - unzip
+      - curl
+    update_cache: true
+
+- name: Download and install Consul
+  ansible.builtin.unarchive:
+    src: "https://releases.hashicorp.com/consul/1.17.0/consul_1.17.0_linux_amd64.zip"
+    dest: /usr/local/bin/
+    remote_src: true
+    mode: '0755'
+    creates: /usr/local/bin/consul
+
+- name: Create Consul config directory
+  ansible.builtin.file:
+    path: /etc/consul.d
+    state: directory
+    mode: '0755'
+
+- name: Upload Consul agent config
+  ansible.builtin.template:
+    src: agent.hcl.j2
+    dest: /etc/consul.d/agent.hcl
+    mode: '0755'
+
+- name: Upload Consul systemd service
+  ansible.builtin.template:
+    src: consul.service.j2
+    dest: /etc/systemd/system/consul.service
+    mode: '0755'
+
+- name: Start and enable Consul service
+  ansible.builtin.systemd:
+    name: consul
+    state: started
+    enabled: true

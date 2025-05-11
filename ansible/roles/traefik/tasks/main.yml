@@ -1,34 +1,39 @@
----
-- name: Install Docker
-  ansible.builtin.apt:
-    name: docker.io
-    state: present
-    update_cache: true
-
-- name: Ensure Traefik config directory
-  ansible.builtin.file:
-    path: /opt/traefik
-    state: directory
+- name: Download Traefik binary
+  ansible.builtin.get_url:
+    url: "https://github.com/traefik/traefik/releases/download/v2.11.0/traefik_v2.11.0_linux_amd64.tar.gz"
+    dest: /tmp/traefik.tar.gz
     mode: '0755'
 
-- name: Copy static config
+- name: Extract and install Traefik
+  ansible.builtin.unarchive:
+    src: /tmp/traefik.tar.gz
+    dest: /usr/local/bin/
+    remote_src: true
+    mode: '0755'
+
+- name: Create Traefik config directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/traefik
+    - /etc/traefik/config
+
+- name: Upload static config
   ansible.builtin.template:
     src: traefik.yml.j2
-    dest: /opt/traefik/traefik.yml
-    mode: '0644'
-    force: true
+    dest: /etc/traefik/traefik.yml
+    mode: '0755'
 
-- name: Run Traefik container
-  community.docker.docker_container:
+- name: Upload Traefik systemd service
+  ansible.builtin.template:
+    src: traefik.service.j2
+    dest: /etc/systemd/system/traefik.service
+    mode: '0755'
+
+- name: Start and enable Traefik
+  ansible.builtin.file.systemd:
     name: traefik
-    image: traefik:v3.0
-    restart_policy: always
-    detach: true
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
-    volumes:
-      - "/opt/traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
-    command:
-      - "--configFile=/etc/traefik/traefik.yml"
+    state: started
+    enabled: true

@@ -4,10 +4,12 @@ entryPoints:
   websecure:
     address: ":443"
 
+providers:
+  consulCatalog:
+    prefix: traefik
+    exposedByDefault: true
+    endpoint:
+      address: "{{ hostvars['consul.local']['ansible_host'] }}:8500"
+
 api:
   dashboard: true
-  insecure: true
-
-providers:
-  docker:
-    exposedByDefault: false

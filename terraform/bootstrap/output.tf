@@ -1,3 +1,7 @@
+output "consul_ips" {
+  value = proxmox_virtual_environment_vm.consul.ipv4_addresses
+}
+
 output "traefik_ips" {
   value = proxmox_virtual_environment_vm.traefik.ipv4_addresses
 }
