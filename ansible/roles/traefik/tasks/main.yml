@@ -1,26 +1,26 @@
----
-- name: Create Traefik directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    mode: '0755'
-  loop:
-    - "{{ traefik_config_dir }}"
-    - "{{ traefik_data_dir }}"
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: true
 
-- name: Copy Traefik configuration template
+- name: Ensure Traefik config directory
+  file:
+    path: /opt/traefik
+    state: directory
+
+- name: Copy static config
   template:
     src: traefik.yml.j2
-    dest: "{{ traefik_config_dir }}/traefik.yml"
-    mode: '0644'
+    dest: /opt/traefik/traefik.yml
 
-- name: Ensure Docker is installed
-  include_tasks: docker.yml
-  when: ansible_os_family == "Debian"
-
-- name: Deploy Traefik using Docker
-  docker_compose:
-    project_src: "{{ traefik_data_dir }}"
-    files:
-      - docker-compose.yml
-    state: present 
+- name: Run Traefik container
+  community.docker.docker_container:
+    name: traefik
+    image: traefik:v3.0
+    restart_policy: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/opt/traefik/traefik.yml:/etc/traefik/traefik.yml"

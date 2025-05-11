@@ -7,4 +7,4 @@ source .venv/bin/activate
 
 # # Deactivate and remove venv
 # deactivate             
-# rm -f .venv 
+# rm -rf .venv 

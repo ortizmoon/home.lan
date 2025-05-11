@@ -1,24 +1,11 @@
----
-# Traefik configuration
-api:
-  dashboard: true
-  insecure: true  # For development only, disable in production
-
 entryPoints:
   web:
     address: ":80"
   websecure:
     address: ":443"
-  dashboard:
-    address: ":8080"
 
 providers:
-  docker:
-    endpoint: "unix:///var/run/docker.sock"
-    watch: true
-    exposedByDefault: false
+  docker: {}
 
-log:
-  level: INFO
-
-accessLog: {} 
+api:
+  dashboard: true

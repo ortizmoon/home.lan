@@ -1,0 +1,12 @@
+all:
+  children:
+    traefik:
+      hosts:
+        traefik.local:
+          ansible_host: 192.168.10.101
+    netbox:
+      hosts:
+        netbox.local:
+          ansible_host: 192.168.10.102
+  vars:
+    ansible_user: root
