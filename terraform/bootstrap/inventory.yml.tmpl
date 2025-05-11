@@ -4,9 +4,11 @@ all:
       hosts:
         traefik.local:
           ansible_host: ${traefik_ip}
+          ansible_user: root
+          ansible_ssh_private_key_file: ${ssh_privatekey}
     netbox:
       hosts:
         netbox.local:
           ansible_host: ${netbox_ip}
-  vars:
-    ansible_user: root
+          ansible_user: root
+          ansible_ssh_private_key_file: ${ssh_privatekey}

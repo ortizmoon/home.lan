@@ -20,6 +20,9 @@ variable "pm_datastore_id" {
     type    = string
     description = "ID of the datastore to use"
 }
-variable "ssh_key_path" {
-  type    = string  
+variable "ssh_key" {
+  type    = string
+}
+variable "ssh_privatekey" {
+  type    = string
 }

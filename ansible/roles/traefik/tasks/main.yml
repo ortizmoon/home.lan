@@ -1,26 +1,34 @@
+---
 - name: Install Docker
-  apt:
+  ansible.builtin.apt:
     name: docker.io
     state: present
     update_cache: true
 
 - name: Ensure Traefik config directory
-  file:
+  ansible.builtin.file:
     path: /opt/traefik
     state: directory
+    mode: '0755'
 
 - name: Copy static config
-  template:
+  ansible.builtin.template:
     src: traefik.yml.j2
     dest: /opt/traefik/traefik.yml
+    mode: '0644'
+    force: true
 
 - name: Run Traefik container
   community.docker.docker_container:
     name: traefik
     image: traefik:v3.0
     restart_policy: always
+    detach: true
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
     volumes:
-      - "/opt/traefik/traefik.yml:/etc/traefik/traefik.yml"
+      - "/opt/traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
+    command:
+      - "--configFile=/etc/traefik/traefik.yml"

@@ -1,10 +1,8 @@
-
-- name: Deploy Netbox
-  hosts: netbox
-  become: true
-  roles:
-    - netbox 
-
+# - name: Deploy Netbox
+#   hosts: netbox
+#   become: true
+#   roles:
+#     - netbox
 - name: Deploy Traefik
   hosts: traefik
   become: true

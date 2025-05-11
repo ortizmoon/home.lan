@@ -60,7 +60,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
     user_account {
       username = "root"
       password = "root123"
-      keys     = [file(var.ssh_key_path)]
+      keys     = [file(var.ssh_key)]
     }
   }
 

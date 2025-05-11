@@ -19,6 +19,6 @@ variable "pm_datastore_id" {
 variable "pm_datastore2_id" {
     type    = string
 }
-variable "ssh_key_path" {
+variable "ssh_key" {
   type    = string  
 }

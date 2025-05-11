@@ -7,4 +7,5 @@ ansible_become_method: sudo
 
 # Common paths
 app_dir: /opt/apps
-config_dir: /etc/apps 
+config_dir: /etc/apps
+ansible_python_interpreter: /usr/bin/python3.11
