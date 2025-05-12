@@ -3,11 +3,13 @@
   become: true
   roles:
     - consul
+
 - name: Deploy Traefik
   hosts: traefik
   become: true
   roles:
     - traefik
+
 - name: Deploy Netbox
   hosts: netbox
   become: true

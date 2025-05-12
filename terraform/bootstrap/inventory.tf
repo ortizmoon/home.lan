@@ -4,6 +4,10 @@ resource "local_file" "ansible_inventory" {
     traefik_ip = split("/", proxmox_virtual_environment_vm.traefik.ipv4_addresses[1][0])[0]
     netbox_ip  = split("/", proxmox_virtual_environment_vm.netbox.ipv4_addresses[1][0])[0]
     ssh_privatekey = var.ssh_privatekey
+
+    consul_domain   = var.consul_domain
+    traefik_domain  = var.traefik_domain
+    netbox_domain   = var.netbox_domain
   })
 
   filename = "${path.module}/../../ansible/inventories/inventory.yml"

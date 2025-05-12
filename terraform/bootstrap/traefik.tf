@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "traefik" {
-  name      = "traefik.ebatra.com"
+  name      = var.traefik_domain
   node_name = "pve"
 
   clone {

@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "consul" {
-  name      = "consul.ebatra.com"
+  name      = var.consul_domain
   node_name = "pve"
 
   clone {

@@ -2,19 +2,19 @@ all:
   children:
     consul:
       hosts:
-        consul.ebatra.com:
+        ${consul_domain}:
           ansible_host: ${consul_ip}
           ansible_user: root
           ansible_ssh_private_key_file: ${ssh_privatekey}
     traefik:
       hosts:
-        traefik.ebatra.com:
+        ${traefik_domain}:
           ansible_host: ${traefik_ip}
           ansible_user: root
           ansible_ssh_private_key_file: ${ssh_privatekey}
     netbox:
       hosts:
-        netbox.ebatra.com:
+        ${netbox_domain}:
           ansible_host: ${netbox_ip}
           ansible_user: root
           ansible_ssh_private_key_file: ${ssh_privatekey}

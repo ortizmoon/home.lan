@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "netbox" {
-  name      = "cmdb.ebatra.com"
+  name      = var.netbox_domain
   node_name = "pve"
 
   clone {
