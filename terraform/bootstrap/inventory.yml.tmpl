@@ -1,4 +1,8 @@
 all:
+  vars:
+    consul_domain: ${consul_domain}
+    traefik_domain: ${traefik_domain}
+    netbox_domain: ${netbox_domain}
   children:
     consul:
       hosts:

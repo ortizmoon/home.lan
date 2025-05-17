@@ -3,6 +3,7 @@
     url: "https://github.com/traefik/traefik/releases/download/v2.11.0/traefik_v2.11.0_linux_amd64.tar.gz"
     dest: /tmp/traefik.tar.gz
     mode: '0755'
+    force: false
 
 - name: Extract and install Traefik
   ansible.builtin.unarchive:
@@ -24,16 +25,22 @@
   ansible.builtin.template:
     src: traefik.yml.j2
     dest: /etc/traefik/traefik.yml
-    mode: '0755'
+    mode: '0644'
+  notify: Restart Traefik
 
 - name: Upload Traefik systemd service
   ansible.builtin.template:
     src: traefik.service.j2
     dest: /etc/systemd/system/traefik.service
-    mode: '0755'
+    mode: '0644'
+  notify: Restart Traefik
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
 
 - name: Start and enable Traefik
-  ansible.builtin.file.systemd:
+  ansible.builtin.systemd:
     name: traefik
     state: started
     enabled: true

@@ -1,3 +1,13 @@
-# SPDX-License-Identifier: MIT-0
----
-# handlers file for roles/traefik
+- name: Upload static config
+  ansible.builtin.copy:
+    src: static_config.yml
+    dest: /etc/traefik/static_config.yml
+    mode: '0644'
+  notify: Restart Traefik
+
+- name: Upload Traefik systemd service
+  ansible.builtin.copy:
+    src: traefik.service
+    dest: /etc/systemd/system/traefik.service
+    mode: '0644'
+  notify: Restart Traefik
