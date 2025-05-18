@@ -39,7 +39,7 @@ resource "proxmox_virtual_environment_vm" "consul" {
 
   network_device {
     bridge = "vmbr0"
-    model  = "virtio"
+    model  = "virtio" 
   }
 
   operating_system {
@@ -49,17 +49,17 @@ resource "proxmox_virtual_environment_vm" "consul" {
   initialization {
     dns {
       domain = ""
-      servers = ["192.168.10.1"]
+      servers = [var.dns_ip]
     }  
     ip_config {
       ipv4 {
-        address = "192.168.10.4/24"
-        gateway = "192.168.10.1"
+        address = "${var.consul_ip}/24"
+        gateway = var.gateway_ip
       }
     }
     user_account {
       username = "root"
-      password = "root123"
+      password = "root12345"
       keys     = [file(var.ssh_key)]
     }
   }

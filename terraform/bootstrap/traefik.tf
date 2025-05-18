@@ -49,17 +49,17 @@ resource "proxmox_virtual_environment_vm" "traefik" {
   initialization {
     dns {
       domain = ""
-      servers = ["192.168.10.1"]
+      servers = [var.dns_ip]
     }  
     ip_config {
       ipv4 {
-        address = "192.168.10.2/24"
-        gateway = "192.168.10.1"
+        address = "${var.traefik_ip}/24"
+        gateway = var.gateway_ip
       }
     }
     user_account {
       username = "root"
-      password = "root123"
+      password = "root12345"
       keys     = [file(var.ssh_key)]
     }
   }
