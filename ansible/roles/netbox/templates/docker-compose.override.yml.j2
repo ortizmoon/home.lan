@@ -1,0 +1,6 @@
+services:
+  netbox:
+    ports:
+      - "8000:8080"
+    healthcheck:
+      test: ["CMD", "true"]

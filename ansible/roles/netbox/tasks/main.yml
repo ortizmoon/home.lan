@@ -1,19 +1,41 @@
-- name: Install docker dependencies
+- name: Install docker and dependencies
   ansible.builtin.apt:
     name:
       - docker.io
       - docker-compose
     update_cache: true
-    state: present
 
-- name: Clone netbox-docker repo
+- name: Clone Netbox Docker repo
   ansible.builtin.git:
-    repo: 'https://github.com/netbox-community/netbox-docker.git'
-    dest: /opt/netbox-docker
-    version: master
+    repo: "{{ netbox_repo_url }}"
+    dest: "{{ netbox_path }}"
+    force: true
 
-- name: Start NetBox via docker compose
-  ansible.builtin.command: docker compose up -d
-  changed_when: false
+- name: Upload .env config
+  ansible.builtin.template:
+    src: env.docker.j2
+    dest: "{{ netbox_path }}/.env"
+    mode: '0644'
+  notify: Restart Netbox
+
+- name: Upload docker-compose override for NetBox
+  ansible.builtin.template:
+    src: docker-compose.override.yml.j2
+    dest: /opt/netbox-docker/docker-compose.override.yml
+    mode: '0644'
+
+- name: Start Netbox via docker compose
+  ansible.builtin.command: docker-compose up -d
   args:
-    chdir: /opt/netbox-docker
+    chdir: "{{ netbox_path }}"
+  changed_when: false
+
+- name: Register NetBox in Consul via HTTP
+  delegate_to: "{{ consul_domain }}"
+  ansible.builtin.uri:
+    url: "http://localhost:8500/v1/agent/service/register"
+    method: PUT
+    body: "{{ lookup('template', 'netbox.json.j2') }}"
+    headers:
+      Content-Type: "application/json"
+    body_format: json

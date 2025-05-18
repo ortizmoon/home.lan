@@ -1,3 +1,4 @@
-# SPDX-License-Identifier: MIT-0
----
-# handlers file for roles/netbox
+- name: Restart Netbox
+  ansible.builtin.command: docker compose restart
+  args:
+    chdir: "{{ netbox_path }}"

@@ -1,0 +1,16 @@
+{
+  "ID": "traefik",
+  "Name": "traefik",
+  "Tags": [
+    "traefik.enable=true",
+    "traefik.http.routers.traefik.rule=Host(`{{ traefik_domain }}`)",
+    "traefik.http.routers.traefik.entrypoints=web",
+    "traefik.http.services.traefik.loadbalancer.server.port=8080"
+  ],
+  "Address": "{{ hostvars[inventory_hostname]['ansible_host'] }}",
+  "Port": 8080,
+  "Check": {
+    "HTTP": "http://{{ hostvars[inventory_hostname]['ansible_host'] }}:8080/dashboard/",
+    "Interval": "10s"
+  }
+}

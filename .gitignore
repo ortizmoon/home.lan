@@ -51,3 +51,4 @@ ansible/**/__pycache__/
 .vscode/
 *.swp
 *~
+*.sh
