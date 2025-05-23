@@ -1,19 +1,18 @@
-- name: Install docker and dependencies
+- name: Install Docker and dependencies
   ansible.builtin.apt:
     name:
       - docker.io
       - docker-compose
+      - jq
+      - curl
     update_cache: true
 
 - name: Clone Netbox Docker repo
   ansible.builtin.git:
     repo: "{{ netbox_repo_url }}"
     dest: "{{ netbox_path }}"
-<<<<<<< HEAD
-    force: true
-=======
     version: "{{ netbox_repo_version }}"
->>>>>>> 6d361f6 (Add ip-vars in terraform)
+    force: true
 
 - name: Upload .env config
   ansible.builtin.template:
@@ -22,24 +21,18 @@
     mode: '0644'
   notify: Restart Netbox
 
-<<<<<<< HEAD
 - name: Upload docker-compose override for NetBox
   ansible.builtin.template:
     src: docker-compose.override.yml.j2
-    dest: /opt/netbox-docker/docker-compose.override.yml
+    dest: "{{ netbox_path }}/docker-compose.override.yml"
     mode: '0644'
 
 - name: Start Netbox via docker compose
   ansible.builtin.command: docker-compose up -d
-=======
-- name: Start Netbox via docker compose
-  ansible.builtin.command: docker compose up -d
->>>>>>> 6d361f6 (Add ip-vars in terraform)
   args:
     chdir: "{{ netbox_path }}"
   changed_when: false
 
-<<<<<<< HEAD
 - name: Register NetBox in Consul via HTTP
   delegate_to: "{{ consul_domain }}"
   ansible.builtin.uri:
@@ -49,14 +42,3 @@
     headers:
       Content-Type: "application/json"
     body_format: json
-=======
-- name: Wait for Netbox API
-  ansible.builtin.uri:
-    url: http://localhost:{{ netbox_port }}/api/
-    status_code: 200
-    validate_certs: false
-  register: netbox_ready
-  retries: 5
-  delay: 3
-  until: netbox_ready.status == 200
->>>>>>> 6d361f6 (Add ip-vars in terraform)

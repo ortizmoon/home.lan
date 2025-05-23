@@ -6,16 +6,8 @@ After=network-online.target
 [Service]
 User=consul
 Group=consul
-<<<<<<< HEAD
 ExecStart=/usr/local/bin/consul agent -config-dir=/etc/consul.d -data-dir=/opt/consul
-=======
-ExecStart=/usr/local/bin/consul agent -config-dir=/etc/consul.d
->>>>>>> 6d361f6 (Add ip-vars in terraform)
-Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-<<<<<<< HEAD
 
-=======
->>>>>>> 6d361f6 (Add ip-vars in terraform)
