@@ -46,6 +46,19 @@
     dest: /etc/consul.d/agent.hcl
     mode: '0644'
   notify: Restart Consul
+<<<<<<< HEAD
+=======
+
+- name: DEBUG — check if template file exists locally
+  ansible.builtin.stat:
+    path: "{{ role_path }}/templates/consul.service.j2"
+  register: consul_template_check
+
+- name: DEBUG — fail if template file not found
+  ansible.builtin.fail:
+    msg: "TEMPLATE MISSING: {{ role_path }}/templates/consul.service.j2"
+  when: not consul_template_check.stat.exists
+>>>>>>> 6d361f6 (Add ip-vars in terraform)
 
 - name: Upload Consul systemd service
   ansible.builtin.template:
@@ -63,6 +76,14 @@
   ansible.builtin.stat:
     path: /etc/systemd/system/consul.service
   register: consul_unit
+<<<<<<< HEAD
+=======
+
+- name: Fail if consul unit file is missing
+  ansible.builtin.fail:
+    msg: "Consul systemd unit file is missing!"
+  when: not consul_unit.stat.exists
+>>>>>>> 6d361f6 (Add ip-vars in terraform)
 
 - name: Start and enable Consul service
   ansible.builtin.systemd:
