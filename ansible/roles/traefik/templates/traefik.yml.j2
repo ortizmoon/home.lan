@@ -6,10 +6,15 @@ entryPoints:
 
 providers:
   consulCatalog:
-    exposedByDefault: true
     endpoint:
       address: "{{ hostvars[consul_domain]['ansible_host'] }}:8500"
+    exposedByDefault: false
+    defaultRule: ""
+    constraints:
+      - "Tag(`traefik.enable=true`)"
 
 api:
   dashboard: true
-  insecure: true
+
+log:
+  level: DEBUG
