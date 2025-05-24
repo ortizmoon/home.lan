@@ -10,11 +10,15 @@ providers:
       address: "{{ hostvars[consul_domain]['ansible_host'] }}:8500"
     exposedByDefault: false
     defaultRule: ""
-    constraints:
-      - "Tag(`traefik.enable=true`)"
+    constraints: 'Tag(`traefik.enable=true`)'
 
 api:
   dashboard: true
-
+  insecure: true
+  
 log:
   level: DEBUG
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false

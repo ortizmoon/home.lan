@@ -6,13 +6,18 @@
       - jq
     update_cache: true
 
-- name: Download and install Consul
+- name: Download Consul binary
+  ansible.builtin.get_url:
+    url: "https://releases.hashicorp.com/consul/1.17.0/consul_1.17.0_linux_amd64.zip"
+    dest: /tmp/consul.zip
+    mode: '0644'
+
+- name: Unzip Consul binary
   ansible.builtin.unarchive:
-    src: "https://releases.hashicorp.com/consul/1.17.0/consul_1.17.0_linux_amd64.zip"
+    src: /tmp/consul.zip
     dest: /usr/local/bin/
     remote_src: true
     mode: '0755'
-    creates: /usr/local/bin/consul
 
 - name: Create consul system user
   ansible.builtin.user:
@@ -26,26 +31,24 @@
     path: /etc/consul.d
     state: directory
     mode: '0755'
+    owner: consul
+    group: consul
 
 - name: Create Consul data directory
   ansible.builtin.file:
     path: /opt/consul
     state: directory
     mode: '0755'
-
-- name: Set ownership of Consul data directory (safe)
-  ansible.builtin.file:
-    path: /opt/consul
     owner: consul
     group: consul
-    state: directory
-    mode: '0755'
 
 - name: Upload Consul agent config
   ansible.builtin.template:
     src: agent.hcl.j2
     dest: /etc/consul.d/agent.hcl
     mode: '0644'
+    owner: consul
+    group: consul
   notify: Restart Consul
 
 - name: Upload Consul systemd service
@@ -53,17 +56,11 @@
     src: consul.service.j2
     dest: /etc/systemd/system/consul.service
     mode: '0644'
-    force: true
   notify: Restart Consul
 
 - name: Reload systemd
   ansible.builtin.systemd:
     daemon_reload: true
-
-- name: Assert that systemd unit file for consul exists
-  ansible.builtin.stat:
-    path: /etc/systemd/system/consul.service
-  register: consul_unit
 
 - name: Start and enable Consul service
   ansible.builtin.systemd:

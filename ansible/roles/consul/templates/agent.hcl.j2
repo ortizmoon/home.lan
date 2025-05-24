@@ -1,10 +1,13 @@
-server = true
-bootstrap_expect = 1
 datacenter = "home"
 data_dir = "/opt/consul"
-bind_addr = "0.0.0.0"
+log_level = "INFO"
+node_name = "{{ inventory_hostname }}"
+bind_addr = "{{ hostvars[inventory_hostname]['ansible_host'] }}"
 client_addr = "0.0.0.0"
 
 ui_config {
   enabled = true
 }
+
+server = true
+bootstrap_expect = 1
