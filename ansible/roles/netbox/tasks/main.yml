@@ -2,7 +2,6 @@
   ansible.builtin.apt:
     name:
       - docker.io
-      - docker-compose
       - jq
       - curl
     update_cache: true
@@ -27,11 +26,10 @@
     dest: "{{ netbox_path }}/docker-compose.override.yml"
     mode: '0644'
 
-- name: Start Netbox via docker compose
-  ansible.builtin.command: docker-compose up -d
-  args:
-    chdir: "{{ netbox_path }}"
-  changed_when: false
+- name: Start Netbox via Compose v2
+  community.docker.docker_compose_v2:
+    project_src: "{{ netbox_path }}"
+    state: present
 
 - name: Register NetBox in Consul via HTTP
   delegate_to: "{{ consul_domain }}"

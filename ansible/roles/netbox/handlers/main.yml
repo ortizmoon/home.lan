@@ -1,4 +1,4 @@
 - name: Restart Netbox
-  ansible.builtin.command: docker-compose restart
-  args:
-    chdir: "{{ netbox_path }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ netbox_path }}"
+    state: restarted

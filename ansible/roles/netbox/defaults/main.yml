@@ -1,8 +1,1 @@
-netbox_repo_url: https://github.com/netbox-community/netbox-docker.git
-<<<<<<< HEAD
-netbox_repo_version: main
-=======
-netbox_repo_version: master
->>>>>>> 6d361f6 (Add ip-vars in terraform)
-netbox_path: /opt/netbox-docker
-netbox_port: 8000
+#
