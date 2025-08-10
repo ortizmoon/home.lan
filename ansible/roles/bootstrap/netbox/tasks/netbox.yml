@@ -1,0 +1,7 @@
+- name: Ensure netbox_community.netbox is installed
+  ansible.builtin.command: ansible-galaxy collection install netbox_community.netbox
+  changed_when: false
+
+- name: Deploy NetBox
+  include_role:
+    name: netbox_community.netbox.netbox

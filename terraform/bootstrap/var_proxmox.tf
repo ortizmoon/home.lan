@@ -1,28 +1,24 @@
 variable "pm_user" {
-    type    = string
+  type = string
 }
 variable "pm_password" {
-    type    = string
+  type = string
 }
 variable "pm_endpoint" {
-    type    = string
-    description = "Proxmox API endpoint URL"
+  type        = string
 }
 variable "pm_api_token" {
-    type    = string
-    description = "Proxmox API token"
+  type        = string
 }
 variable "pm_template_id" {
-    type    = string
-    description = "ID of the template to clone from"
+  type        = string
 }
 variable "pm_datastore_id" {
-    type    = string
-    description = "ID of the datastore to use"
+  type        = string
 }
 variable "ssh_key" {
-  type    = string
+  type = string
 }
 variable "ssh_privatekey" {
-  type    = string
+  type = string
 }

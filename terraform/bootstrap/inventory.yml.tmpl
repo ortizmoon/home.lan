@@ -2,7 +2,7 @@ all:
   vars:
     consul_domain: ${consul_domain}
     traefik_domain: ${traefik_domain}
-    netbox_domain: ${netbox_domain}
+    vault_domain: ${vault_domain}
   children:
     consul:
       hosts:
@@ -16,9 +16,9 @@ all:
           ansible_host: ${traefik_ip}
           ansible_user: root
           ansible_ssh_private_key_file: ${ssh_privatekey}
-    netbox:
+    vault:
       hosts:
-        ${netbox_domain}:
-          ansible_host: ${netbox_ip}
+        ${vault_domain}:
+          ansible_host: ${vault_ip}
           ansible_user: root
           ansible_ssh_private_key_file: ${ssh_privatekey}

@@ -1,0 +1,20 @@
+netbox_version: "v3.3.0"
+netbox_generate_systemd: true
+
+netbox_config:
+  ALLOWED_HOSTS:
+    - "{{ netbox_domain }}"
+  SECRET_KEY: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters') }}"
+  DATABASE:
+    NAME: netbox
+    USER: netbox
+    PASSWORD: netboxpass
+    HOST: localhost
+    PORT: 5432
+
+netbox_postgres_install: true
+netbox_postgres_user: netbox
+netbox_postgres_password: netboxpass
+
+netbox_uwsgi_bind_address: 0.0.0.0
+netbox_uwsgi_bind_port: 8000

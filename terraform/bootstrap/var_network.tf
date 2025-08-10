@@ -6,11 +6,11 @@ variable "traefik_domain" {
   type    = string
 }
 
-variable "netbox_domain" {
+variable "vault_domain" {
   type    = string
 }
 
-variable "netbox_ip" {
+variable "vault_ip" {
   type    = string
 }
 
@@ -28,4 +28,10 @@ variable "gateway_ip" {
 
 variable "dns_ip" {
   type    = string
+}
+
+
+variable "default_bridge" {
+  type        = string
+  default     = "vmbr0"
 }

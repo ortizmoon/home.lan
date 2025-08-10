@@ -1,0 +1,25 @@
+.PHONY: req bootstrap
+
+# Установка коллекций из requirements.yml
+req:
+	ansible-galaxy collection install -r requirements.yml
+
+# Этап 1 — bootstrap: фундамент (Traefik, Consul, NetBox)
+bootstrap: req
+	ansible-playbook -i inventories/inventory.yml playbooks/bootstrap.yml
+
+# # Этап 2 — core: сервисы поверх фундамента
+# core: req
+# 	ansible-playbook -i inventories/inventory.yml playbooks/core.yml
+
+# # Проверка конкретных этапов
+# check-bootstrap:
+# 	ansible-playbook -i inventories/inventory.yml playbooks/bootstrap.yml --check --diff
+
+# check-core:
+# 	ansible-playbook -i inventories/inventory.yml playbooks/core.yml --check --diff
+
+# # Очистка временных файлов
+# clean:
+# 	rm -rf ~/.ansible/tmp
+# 	rm -rf .ansible/
