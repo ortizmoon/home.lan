@@ -1,9 +1,0 @@
-- name: Register NetBox in Consul via HTTP
-  delegate_to: "{{ consul_domain }}"
-  ansible.builtin.uri:
-    url: "http://localhost:8500/v1/agent/service/register"
-    method: PUT
-    body: "{{ lookup('template', 'netbox.json.j2') }}"
-    headers:
-      Content-Type: "application/json"
-    body_format: json

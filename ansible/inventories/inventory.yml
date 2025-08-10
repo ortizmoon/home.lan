@@ -2,7 +2,7 @@ all:
   vars:
     consul_domain: consul.ebatra.com
     traefik_domain: traefik.ebatra.com
-    netbox_domain: netbox.ebatra.com
+    vault_domain: vault.ebatra.com
   children:
     consul:
       hosts:
@@ -16,9 +16,9 @@ all:
           ansible_host: 192.168.10.2
           ansible_user: root
           ansible_ssh_private_key_file: ~/.ssh/id_ed25519
-    netbox:
+    vault:
       hosts:
-        netbox.ebatra.com:
+        vault.ebatra.com:
           ansible_host: 192.168.10.3
           ansible_user: root
           ansible_ssh_private_key_file: ~/.ssh/id_ed25519

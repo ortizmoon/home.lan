@@ -1,8 +1,0 @@
-# - name: Install Docker and dependencies
-#   ansible.builtin.import_tasks: docker.yml
-
-- name: Install NetBox
-  ansible.builtin.import_tasks: netbox.yml
-
-# - name: Registration in Consul
-#   ansible.builtin.import_tasks: init_consul.yml
